@@ -23,6 +23,8 @@
 	   }; //3
 	   document.getElementById("pilotStatus").innerHTML = `Pilot Ready: ${pilot.value}`
            document.getElementById("copilotStatus").innerHTML = `Copilot Ready: ${copilot.value}`
+	   document.getElementById("fuelStatus").innerHTML = "Fuel level high enough for launch";
+	   document.getElementById("cargoStatus").innerHTML = "Cargo mass is low enough for launch";
 
 	   if (mass.value <= 10000 && fuel.value >= 10000){//6
 	      document.getElementById("launchStatus").innerHTML = "Shuttle is ready for launch";
