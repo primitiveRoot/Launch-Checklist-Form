@@ -1,10 +1,54 @@
 <!DOCTYPE>
 <html>
     <head>
+	<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+        <meta content="utf-8" http-equiv="encoding">
         <title>Launch Checklist</title>
         <link rel = "stylesheet" type = "text/css" href = "styles.css" />
         <script src = "script.js"></script>
     </head>
+    <script>
+    window.addEventListener("load", function() {//1
+	let form = document.querySelector("form");
+       
+	form.addEventListener("submit", function(event) {//2
+	   let pilot = document.querySelector("input[name=pilotName]");
+	   let copilot = document.querySelector("input[name=copilotName]");
+	   let fuel = document.querySelector("input[name=fuelLevel]");
+	   let mass = document.querySelector("input[name=cargoMass]");
+
+	   if (pilot.value === "" || copilot.value === "" || fuel.value === "" || mass.value === "") {//3
+              alert("All fields are required!");
+	      event.preventDefault();
+	   }; //3
+	   document.getElementById("pilotStatus").innerHTML = `Pilot Ready: ${pilot.value}`
+           document.getElementById("copilotStatus").innerHTML = `Copilot Ready: ${copilot.value}`
+
+	   if (mass.value <= 10000 && fuel.value >= 10000){//6
+	      document.getElementById("launchStatus").innerHTML = "Shuttle is ready for launch";
+              document.getElementById("launchStatus").style.color = 'green';
+           };//6
+
+	   if (fuel.value < 10000){//4 needs to return to default reading
+	      document.getElementById("fuelStatus").innerHTML = "Fuel level too low for launch";
+	      document.getElementById("faultyItems").style.visibility = "visible";
+	      document.getElementById("launchStatus").innerHTML = "Shuttle not ready to launch";
+              document.getElementById("launchStatus").style.color = 'red';
+	      event.preventDefault();
+	   };//4
+
+           if (mass.value > 10000){//5 needs to return to def
+              document.getElementById("cargoStatus").innerHTML = "Cargo mass is too high to launch";
+	      document.getElementById("faultyItems").style.visibility = "visible";
+	      document.getElementById("launchStatus").innerHTML = "Shuttle not ready to launch";
+              document.getElementById("launchStatus").style.color = 'red';	
+ 	      event.preventDefault();
+	   };//5
+        });//2
+
+     });//1
+    </script>
+    
     <body>
         <h1>Launch Checklist Form</h1>
         <div id="missionTarget">
@@ -19,10 +63,10 @@
                     <label>Co-pilot Name <input type="text" name="copilotName"/></label>
                 </div>
                 <div style="display:flex; flex-direction: row; justify-content: center; align-items: center; margin: 8 0;">
-                    <label>Fuel Level (L) <input type="text" name="fuelLevel"/></label> 
+                    <label>Fuel Level (L) <input type="number" name="fuelLevel"/></label> 
                 </div>
                 <div style="display:flex; flex-direction: row; justify-content: center; align-items: center; margin: 8 0;">
-                    <label>Cargo Mass (kg) <input type="text" name="cargoMass"/></label>
+                    <label>Cargo Mass (kg) <input type="number" name="cargoMass"/></label>
                 </div>
                 <button id="formSubmit">Submit</button>
             </form>
