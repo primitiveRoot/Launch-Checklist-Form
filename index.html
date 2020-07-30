@@ -29,6 +29,7 @@
 	   if (mass.value <= 10000 && fuel.value >= 10000){//6
 	      document.getElementById("launchStatus").innerHTML = "Shuttle is ready for launch";
               document.getElementById("launchStatus").style.color = 'green';
+	      event.preventDefault();
            };//6
 
 	   if (fuel.value < 10000){//4 needs to return to default reading
